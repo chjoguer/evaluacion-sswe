@@ -1,0 +1,1661 @@
+{
+	"info": {
+		"_postman_id": "b2011456-022e-4353-a17c-b9fc789e3ae3",
+		"name": "MSA Movement WebFlux API",
+		"description": "Reactive Microservice for Account Movements using Spring WebFlux\n\nContact Support:\n Name: API Support\n Email: support@rauka.org",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9734283"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "movements",
+					"item": [
+						{
+							"name": "{movementId}",
+							"item": [
+								{
+									"name": "Get movement by ID",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/movements/:movementId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements",
+												":movementId"
+											],
+											"variable": [
+												{
+													"key": "movementId",
+													"value": "8946",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Movement found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"movementId\": 4444,\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 9178,\n  \"occurredAt\": \"1998-10-27T04:09:48.124Z\",\n  \"movementType\": \"CREDIT\",\n  \"amount\": 50,\n  \"balance\": 1450.5,\n  \"description\": \"string\",\n  \"reference\": \"string\",\n  \"createdAt\": \"1985-02-23T10:10:27.283Z\",\n  \"updatedAt\": \"1955-11-20T00:15:47.612Z\"\n}"
+										},
+										{
+											"name": "Movement not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Update a movement",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movements/:movementId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements",
+												":movementId"
+											],
+											"variable": [
+												{
+													"key": "movementId",
+													"value": "8946",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Movement updated successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"movementId\": 4444,\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 9178,\n  \"occurredAt\": \"1998-10-27T04:09:48.124Z\",\n  \"movementType\": \"CREDIT\",\n  \"amount\": 50,\n  \"balance\": 1450.5,\n  \"description\": \"string\",\n  \"reference\": \"string\",\n  \"createdAt\": \"1985-02-23T10:10:27.283Z\",\n  \"updatedAt\": \"1955-11-20T00:15:47.612Z\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Movement not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete movement",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/movements/:movementId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements",
+												":movementId"
+											],
+											"variable": [
+												{
+													"key": "movementId",
+													"value": "8946",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Movement deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Movement not found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/:movementId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														":movementId"
+													],
+													"variable": [
+														{
+															"key": "movementId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "unique",
+							"item": [
+								{
+									"name": "{uniqueKey}",
+									"item": [
+										{
+											"name": "Get movement by unique key (idempotency key)",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/unique/:uniqueKey",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														"unique",
+														":uniqueKey"
+													],
+													"variable": [
+														{
+															"key": "uniqueKey",
+															"value": "7TwDG-VMKpHhUKAvzhyDNyRObvKlR3DH19048xlDuCP1FmBhJt4A",
+															"description": "(Required) Unique key provided when creating the movement"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Movement found",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/unique/:uniqueKey",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"unique",
+																":uniqueKey"
+															],
+															"variable": [
+																{
+																	"key": "uniqueKey"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"movementId\": 4444,\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 9178,\n  \"occurredAt\": \"1998-10-27T04:09:48.124Z\",\n  \"movementType\": \"CREDIT\",\n  \"amount\": 50,\n  \"balance\": 1450.5,\n  \"description\": \"string\",\n  \"reference\": \"string\",\n  \"createdAt\": \"1985-02-23T10:10:27.283Z\",\n  \"updatedAt\": \"1955-11-20T00:15:47.612Z\"\n}"
+												},
+												{
+													"name": "Movement not found",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/unique/:uniqueKey",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"unique",
+																":uniqueKey"
+															],
+															"variable": [
+																{
+																	"key": "uniqueKey"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Internal server error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/unique/:uniqueKey",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"unique",
+																":uniqueKey"
+															],
+															"variable": [
+																{
+																	"key": "uniqueKey"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "account",
+							"item": [
+								{
+									"name": "{accountId}",
+									"item": [
+										{
+											"name": "Get movements by account",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/account/:accountId?from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														"account",
+														":accountId"
+													],
+													"query": [
+														{
+															"key": "from",
+															"value": "1959-09-26T19:45:36.490Z"
+														},
+														{
+															"key": "to",
+															"value": "1959-09-26T19:45:36.490Z"
+														},
+														{
+															"key": "movementType",
+															"value": "CREDIT"
+														}
+													],
+													"variable": [
+														{
+															"key": "accountId",
+															"value": "8946",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "List of movements for the account",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/account/:accountId?from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"account",
+																":accountId"
+															],
+															"query": [
+																{
+																	"key": "from",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "to",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "movementType",
+																	"value": "CREDIT"
+																}
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"movementId\": 6596,\n    \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n    \"accountId\": 6704,\n    \"occurredAt\": \"1996-06-08T10:55:13.149Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 1450.5,\n    \"description\": \"string\",\n    \"reference\": \"string\",\n    \"createdAt\": \"2005-12-16T19:47:04.556Z\",\n    \"updatedAt\": \"1973-05-28T01:11:02.740Z\"\n  },\n  {\n    \"movementId\": 3478,\n    \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n    \"accountId\": 656,\n    \"occurredAt\": \"1974-06-11T15:59:16.338Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 1450.5,\n    \"description\": \"string\",\n    \"reference\": \"string\",\n    \"createdAt\": \"1995-01-10T22:17:30.286Z\",\n    \"updatedAt\": \"2006-10-14T05:33:12.189Z\"\n  }\n]"
+												},
+												{
+													"name": "Bad request",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/account/:accountId?from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"account",
+																":accountId"
+															],
+															"query": [
+																{
+																	"key": "from",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "to",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "movementType",
+																	"value": "CREDIT"
+																}
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Account not found",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/account/:accountId?from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"account",
+																":accountId"
+															],
+															"query": [
+																{
+																	"key": "from",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "to",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "movementType",
+																	"value": "CREDIT"
+																}
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Internal server error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/account/:accountId?from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"account",
+																":accountId"
+															],
+															"query": [
+																{
+																	"key": "from",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "to",
+																	"value": "1959-09-26T19:45:36.490Z"
+																},
+																{
+																	"key": "movementType",
+																	"value": "CREDIT"
+																}
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "type",
+							"item": [
+								{
+									"name": "{movementType}",
+									"item": [
+										{
+											"name": "Get movements by type",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movements/type/:movementType",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movements",
+														"type",
+														":movementType"
+													],
+													"variable": [
+														{
+															"key": "movementType",
+															"value": "CREDIT",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "List of movements by type",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/type/:movementType",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"type",
+																":movementType"
+															],
+															"variable": [
+																{
+																	"key": "movementType"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"movementId\": 6596,\n    \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n    \"accountId\": 6704,\n    \"occurredAt\": \"1996-06-08T10:55:13.149Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 1450.5,\n    \"description\": \"string\",\n    \"reference\": \"string\",\n    \"createdAt\": \"2005-12-16T19:47:04.556Z\",\n    \"updatedAt\": \"1973-05-28T01:11:02.740Z\"\n  },\n  {\n    \"movementId\": 3478,\n    \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n    \"accountId\": 656,\n    \"occurredAt\": \"1974-06-11T15:59:16.338Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 1450.5,\n    \"description\": \"string\",\n    \"reference\": \"string\",\n    \"createdAt\": \"1995-01-10T22:17:30.286Z\",\n    \"updatedAt\": \"2006-10-14T05:33:12.189Z\"\n  }\n]"
+												},
+												{
+													"name": "Invalid movement type",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/type/:movementType",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"type",
+																":movementType"
+															],
+															"variable": [
+																{
+																	"key": "movementType"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Internal server error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/movements/type/:movementType",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"movements",
+																"type",
+																":movementType"
+															],
+															"variable": [
+																{
+																	"key": "movementType"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Get all movements (filterable)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/movements?accountId=8946&from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movements"
+									],
+									"query": [
+										{
+											"key": "accountId",
+											"value": "8946",
+											"description": "Filter by account ID"
+										},
+										{
+											"key": "from",
+											"value": "1959-09-26T19:45:36.490Z",
+											"description": "Start datetime (inclusive)"
+										},
+										{
+											"key": "to",
+											"value": "1959-09-26T19:45:36.490Z",
+											"description": "End datetime (inclusive)"
+										},
+										{
+											"key": "movementType",
+											"value": "CREDIT",
+											"description": "Filter by movement type"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "List of movements",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/movements?accountId=8946&from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "accountId",
+													"value": "8946",
+													"description": "Filter by account ID"
+												},
+												{
+													"key": "from",
+													"value": "1959-09-26T19:45:36.490Z",
+													"description": "Start datetime (inclusive)"
+												},
+												{
+													"key": "to",
+													"value": "1959-09-26T19:45:36.490Z",
+													"description": "End datetime (inclusive)"
+												},
+												{
+													"key": "movementType",
+													"value": "CREDIT",
+													"description": "Filter by movement type"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"movementId\": 6596,\n    \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n    \"accountId\": 6704,\n    \"occurredAt\": \"1996-06-08T10:55:13.149Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 1450.5,\n    \"description\": \"string\",\n    \"reference\": \"string\",\n    \"createdAt\": \"2005-12-16T19:47:04.556Z\",\n    \"updatedAt\": \"1973-05-28T01:11:02.740Z\"\n  },\n  {\n    \"movementId\": 3478,\n    \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n    \"accountId\": 656,\n    \"occurredAt\": \"1974-06-11T15:59:16.338Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 1450.5,\n    \"description\": \"string\",\n    \"reference\": \"string\",\n    \"createdAt\": \"1995-01-10T22:17:30.286Z\",\n    \"updatedAt\": \"2006-10-14T05:33:12.189Z\"\n  }\n]"
+								},
+								{
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/movements?accountId=8946&from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "accountId",
+													"value": "8946",
+													"description": "Filter by account ID"
+												},
+												{
+													"key": "from",
+													"value": "1959-09-26T19:45:36.490Z",
+													"description": "Start datetime (inclusive)"
+												},
+												{
+													"key": "to",
+													"value": "1959-09-26T19:45:36.490Z",
+													"description": "End datetime (inclusive)"
+												},
+												{
+													"key": "movementType",
+													"value": "CREDIT",
+													"description": "Filter by movement type"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+								},
+								{
+									"name": "Internal server error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/movements?accountId=8946&from=1959-09-26T19:45:36.490Z&to=1959-09-26T19:45:36.490Z&movementType=CREDIT",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "accountId",
+													"value": "8946",
+													"description": "Filter by account ID"
+												},
+												{
+													"key": "from",
+													"value": "1959-09-26T19:45:36.490Z",
+													"description": "Start datetime (inclusive)"
+												},
+												{
+													"key": "to",
+													"value": "1959-09-26T19:45:36.490Z",
+													"description": "End datetime (inclusive)"
+												},
+												{
+													"key": "movementType",
+													"value": "CREDIT",
+													"description": "Filter by movement type"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new movement",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"uniqueKey\": \"3b1f1f-7d6c-4c0e-9a4b-5c5a3ddde2b9c10\",\n    \"accountId\": 4703,\n    \"occurredAt\": \"2002-02-26T07:08:28.375Z\",\n    \"movementType\": \"DEBIT\",\n    \"amount\": 50,\n    \"balance\": 9896.344277529823,\n    \"description\": \"string\",\n    \"reference\": \"string\"\n}\n{\n        \"uniqueKey\": \"3b1f1f-7d6c-4c0e-9a4b-5c5a3ddde2b9c10\",\n\n    \"accountId\": 4703,\n    \"occurredAt\": \"2025-09-10T21:12:25.428Z\",\n    \"movementType\": \"CREDIT\",\n    \"amount\": 122,\n    \"description\": \"sdadasd\",\n    \"reference\": \"sadasdasdasd\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/movements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movements"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Movement created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 4703,\n  \"occurredAt\": \"2002-02-26T07:08:28.375Z\",\n  \"movementType\": \"DEBIT\",\n  \"amount\": 50,\n  \"balance\": 9896.344277529823,\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movements",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"movementId\": 4444,\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 9178,\n  \"occurredAt\": \"1998-10-27T04:09:48.124Z\",\n  \"movementType\": \"CREDIT\",\n  \"amount\": 50,\n  \"balance\": 1450.5,\n  \"description\": \"string\",\n  \"reference\": \"string\",\n  \"createdAt\": \"1985-02-23T10:10:27.283Z\",\n  \"updatedAt\": \"1955-11-20T00:15:47.612Z\"\n}"
+								},
+								{
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 4703,\n  \"occurredAt\": \"2002-02-26T07:08:28.375Z\",\n  \"movementType\": \"DEBIT\",\n  \"amount\": 50,\n  \"balance\": 9896.344277529823,\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movements",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+								},
+								{
+									"name": "Account not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 4703,\n  \"occurredAt\": \"2002-02-26T07:08:28.375Z\",\n  \"movementType\": \"DEBIT\",\n  \"amount\": 50,\n  \"balance\": 9896.344277529823,\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movements",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+								},
+								{
+									"name": "Duplicate uniqueKey (idempotency violation)",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 4703,\n  \"occurredAt\": \"2002-02-26T07:08:28.375Z\",\n  \"movementType\": \"DEBIT\",\n  \"amount\": 50,\n  \"balance\": 9896.344277529823,\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movements",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+								},
+								{
+									"name": "Internal server error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"uniqueKey\": \"3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10\",\n  \"accountId\": 4703,\n  \"occurredAt\": \"2002-02-26T07:08:28.375Z\",\n  \"movementType\": \"DEBIT\",\n  \"amount\": 50,\n  \"balance\": 9896.344277529823,\n  \"description\": \"string\",\n  \"reference\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movements",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movements"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timestamp\": \"2025-09-08T15:04:05Z\",\n  \"status\": 400,\n  \"message\": \"Invalid 'amount' (must be > 0)\",\n  \"path\": \"/api/movements\",\n  \"error\": \"Bad Request\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
