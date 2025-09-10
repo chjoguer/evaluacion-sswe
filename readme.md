@@ -1,21 +1,24 @@
-## Evalaución
-```
- 
-### Arquitectura de Microservicios Propuesta
+# Evaluación SSWE - Sistema Bancario con Microservicios
 
-![plot](./arquitectura_propuesta.png)
+**Desarrollado por:** Christian Guerrero García  
+**Fecha:** Septiembre 2025  
+**Tecnologías:** Spring Boot Webflux, Angular, Docker, Module Federation
 
-### Collection Postman
-```
+---
 
-```
- 
-### Arquitectura de Microservicios (Objetivo)
+## 📋 Descripción del Proyecto
 
-![plot](./arquitectura_objetivo.png)
+Sistema bancario distribuido implementado con arquitectura de microservicios, utilizando Angular con Module Federation para el frontend y Spring Boot para los servicios backend.
 
-### Collection Postman
-```
+## 🏗️ Arquitectura del Sistema
+### Arquitectura Objetivo
+![Arquitectura Objetivo](./arquitectura_objetivo.png)
+
+### Arquitectura Propuesta
+![Arquitectura Propuesta](./arquitectura_propuesta.png)
+
+## 🔧 Componentes del Sistema
+
 ### Microservicios
 ```
 1.- Customer Microservice
@@ -81,7 +84,6 @@ Microfrontend
 docker build . -t shell-image:1.0.0
 docker run -d  --name movements-core --network=ncore -p 4201:4201 shell-image:1.0.0 
 
-1.- BPC.postman_collection.json
 ```
 ### Script DB and Docker Compose
 ```
