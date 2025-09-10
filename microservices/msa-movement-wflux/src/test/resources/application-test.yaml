@@ -1,0 +1,16 @@
+﻿spring:
+  application:
+    name: msa-movement-wflux-test
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    org.rauka.dm.msamovementwflux: DEBUG
+    org.springframework.transaction: DEBUG

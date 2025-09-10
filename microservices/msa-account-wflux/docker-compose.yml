@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: msa-account-postgres
+    environment:
+      POSTGRES_DB: msa_account_db
+      POSTGRES_USER: msa_account_user
+      POSTGRES_PASSWORD: msa_account_password
+      POSTGRES_ROOT_PASSWORD: postgres_root_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/main/resources/sql:/docker-entrypoint-initdb.d
+    networks:
+      - msa-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U msa_account_user -d msa_account_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: msa-account-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@msa-account.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8081:80"
+    depends_on:
+      - postgres
+    networks:
+      - msa-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  msa-network:
+    driver: bridge

@@ -1,0 +1,60 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "paths": {
+      "@bank/models":["libs/models/src/public-api.ts"],
+      "@bank/table":["libs/components/src/shared/public-api.ts"],
+      "@bank/modal":["libs/components/src/shared/public-api.ts"],
+      "@bank/search":["libs/components/src/shared/public-api.ts"],
+
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/core-shell/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/core-shell/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/client-mfe/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/client-mfe/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/account-mfe/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/account-mfe/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/movment-mfe/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/movment-mfe/tsconfig.spec.json"
+    }
+  ]
+}

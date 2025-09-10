@@ -1,0 +1,12 @@
+server:
+    port: 8081
+spring:
+  application:
+    name: msa-client
+  datasource:
+    url: jdbc:postgresql://localhost:5432/core_bcp
+    username: example_user
+    password: example_pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

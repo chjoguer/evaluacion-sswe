@@ -1,0 +1,87 @@
+/* Search Table Container */
+.search-table-container {
+  position: relative;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Header Section */
+.search-table-container .d-flex {
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .search-table-container .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .search-table-container .flex-grow-1 {
+    width: 100%;
+  }
+  
+  .search-table-container .flex-shrink-0 {
+    width: 100%;
+  }
+  
+  .search-table-container .flex-shrink-0 button {
+    width: 100%;
+  }
+}
+
+/* Table Section */
+.table-section {
+  margin-top: 1rem;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-radius: 0.5rem;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+/* Create Button Enhancements */
+.search-table-container button {
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-table-container button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.search-table-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .search-table-container {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Focus management */
+.search-table-container button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}

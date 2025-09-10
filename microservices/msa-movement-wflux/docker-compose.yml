@@ -1,0 +1,45 @@
+﻿version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: msa-movement-postgres
+    environment:
+      POSTGRES_DB: msa_movement_db
+      POSTGRES_USER: msa_movement_user
+      POSTGRES_PASSWORD: msa_movement_password
+      POSTGRES_ROOT_PASSWORD: postgres_root_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_movement_data:/var/lib/postgresql/data
+      - ./src/main/resources/sql:/docker-entrypoint-initdb.d
+    networks:
+      - msa-movement-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U msa_movement_user -d msa_movement_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: msa-movement-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@msa-movement.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8082:80"
+    depends_on:
+      - postgres
+    networks:
+      - msa-movement-network
+    restart: unless-stopped
+
+volumes:
+  postgres_movement_data:
+
+networks:
+  msa-movement-network:
+    driver: bridge

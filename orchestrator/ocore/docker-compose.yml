@@ -1,0 +1,42 @@
+﻿version: '3.8'
+services:
+  ocore:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVICES_MOVEMENT_BASE_URL=http://msa-movement-wflux:8081
+      - SERVICES_ACCOUNT_BASE_URL=http://msa-account-wflux:8082
+      - SERVICES_CLIENT_BASE_URL=http://msa-client:8083
+    depends_on:
+      - msa-movement-wflux
+      - msa-account-wflux
+      - msa-client
+    networks:
+      - ocore-network
+
+  msa-movement-wflux:
+    image: msa-movement-wflux:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - ocore-network
+
+  msa-account-wflux:
+    image: msa-account-wflux:latest
+    ports:
+      - "8082:8082"
+    networks:
+      - ocore-network
+
+  msa-client:
+    image: msa-client:latest
+    ports:
+      - "8083:8083"
+    networks:
+      - ocore-network
+
+networks:
+  ocore-network:
+    driver: bridge

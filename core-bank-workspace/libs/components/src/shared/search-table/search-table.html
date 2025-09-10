@@ -1,0 +1,49 @@
+<!-- Search Table Container -->
+<div class="search-table-container">
+  
+  <!-- Header Section -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="flex-grow-1 me-3">
+      <!-- Search Component -->
+      <app-ui-search
+        [data]="data"
+        [config]="config.searchConfig"
+        [loading]="loading"
+        (searchResults)="onSearchResults($event)">
+      </app-ui-search>
+    </div>
+    
+    <!-- Create Button -->
+    <div *ngIf="config.showCreateButton" class="flex-shrink-0">
+      <button 
+        type="button"
+        [class]="config.createButtonClass"
+        (click)="onCreateNew()"
+        [disabled]="loading">
+        <i class="fas fa-plus me-2" aria-hidden="true"></i>
+        {{ config.createButtonText }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="table-section">
+    <app-ui-table
+      [columns]="config.tableColumns"
+      [data]="filteredData()"
+      (deleteRow)="onDeleteRow($event)"
+      (openModal)="onEditRow($event)">
+    </app-ui-table>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 text-muted">Cargando datos...</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: API Clientes
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@rauka.org
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desarrollo
+paths:
+  /api/clientes:
+    get:
+      summary: Listar clientes
+      operationId: clientesGet
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Cliente' }
+        '400':
+          description: Error de petición
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    post:
+      summary: Crear cliente
+      operationId: clientesPost
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ClienteCreate' }
+      responses:
+        '201': { description: Creado }
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /api/clientes/{id}:
+    get:
+      summary: Obtener cliente
+      operationId: clientesIdGet
+      tags:
+        - Clientes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Cliente' }
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    put:
+      summary: Actualizar cliente
+      operationId: clientesIdPut
+      tags:
+        - Clientes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ClienteCreate' }
+      responses:
+        '200': { description: Actualizado }
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    delete:
+      summary: Eliminar cliente
+      operationId: clientesIdDelete
+      tags:
+        - Clientes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: string }
+      responses:
+        '204': { description: Eliminado }
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+components:
+  schemas:
+    Cliente:
+      type: object
+      required: [id, fullName, direction, cellphone, password, status, documentType, identification]
+      properties:
+        id:
+          type: string
+          format: uuid
+        fullName:
+          type: string
+          minLength: 3
+          maxLength: 100
+        direction:
+          type: string
+          minLength: 5
+          maxLength: 200
+        cellphone:
+          type: string
+          description: |
+            Ecuador:
+            - Local: 09XXXXXXXX (10 dígitos)
+            - Internacional: +5939XXXXXXXX
+          pattern: '^(09\\d{8}|\\+5939\\d{8})$'
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).{8,128}$'
+        status:
+          type: boolean
+        documentType:
+          type: string
+          enum: [CEDULA, RUC, PASAPORTE]
+        identification:
+          type: string
+          description: |
+            Formatos permitidos:
+            - Cédula: 10 dígitos
+            - RUC: 13 dígitos
+            - Pasaporte: 6–12 alfanuméricos
+          pattern: '^(\\d{10}|\\d{13}|[A-Za-z0-9]{6,12})$'
+
+    ClienteCreate:
+      type: object
+      required: [fullName, direction, cellphone, password, status, documentType, identification]
+      properties:
+        fullName:
+          type: string
+          minLength: 3
+          maxLength: 100
+        direction:
+          type: string
+          minLength: 5
+          maxLength: 200
+        cellphone:
+          type: string
+          description: |
+            Ecuador:
+            - Local: 09XXXXXXXX (10 dígitos)
+            - Internacional: +5939XXXXXXXX
+          pattern: '^(09\\d{8}|\\+5939\\d{8})$'
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).{8,128}$'
+        status:
+          type: boolean
+        documentType:
+          type: string
+          enum: [CEDULA, RUC, PASAPORTE]
+        identification:
+          type: string
+          description: |
+            Formatos permitidos:
+            - Cédula: 10 dígitos
+            - RUC: 13 dígitos
+            - Pasaporte: 6–12 alfanuméricos
+          pattern: '^(\\d{10}|\\d{13}|[A-Za-z0-9]{6,12})$'
+
+    Error:
+      type: object
+      required: [timestamp, status, message, path]
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-09-08T15:04:05Z"
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "El campo 'telefono' no cumple el formato"
+        path:
+          type: string
+          example: "/clientes"

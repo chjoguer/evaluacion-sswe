@@ -1,0 +1,24 @@
+﻿server:
+  port: 8080
+spring:
+  application:
+    name: msa-account-wflux
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/msa_account_db
+    username: example_user
+    password: example_pass
+    pool:
+      initial-size: 10
+      max-size: 20
+      max-idle-time: 30s
+      validation-query: SELECT 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    org.rauka.dm.msaaccountwflux: DEBUG

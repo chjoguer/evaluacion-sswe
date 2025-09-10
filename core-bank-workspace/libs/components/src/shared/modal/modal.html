@@ -1,0 +1,152 @@
+<!-- Modal Backdrop -->
+<div *ngIf="isOpen" 
+     class="modal fade show d-block" 
+     tabindex="-1" 
+     [attr.aria-labelledby]="title + 'Label'"
+     aria-hidden="false"
+     (click)="onBackdropClick($event)">
+     
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" [id]="title + 'Label'">
+          <i class="fas fa-user me-2" aria-hidden="true"></i>
+          {{ title }}
+        </h5>
+        <button 
+          type="button" 
+          class="btn-close" 
+          (click)="close()" 
+          [disabled]="loading"
+          [attr.aria-label]="'Cerrar ' + title">
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Loading State -->
+        <div *ngIf="loading" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p class="mt-2 text-muted">Procesando...</p>
+        </div>
+
+        <!-- Form Content -->
+        <div *ngIf="!loading && showForm" class="row">
+          <ng-container *ngFor="let field of fields; trackBy: trackByFieldId">
+            <div class="col-md-6 mb-3">
+              <label [for]="field.id" class="form-label">
+                {{ field.label }}
+                <span *ngIf="isFieldRequired(field)" class="text-danger ms-1">*</span>
+              </label>
+
+              <!-- Text Input -->
+              <input 
+                *ngIf="getFieldType(field) === 'text'" 
+                [id]="field.id" 
+                class="form-control" 
+                [(ngModel)]="field.value" 
+                type="text"
+                [placeholder]="field.placeholder || ''"
+                [required]="isFieldRequired(field)"
+                [disabled]="loading">
+
+              <!-- Number Input -->
+              <input 
+                *ngIf="getFieldType(field) === 'number'" 
+                [id]="field.id" 
+                class="form-control" 
+                [(ngModel)]="field.value" 
+                type="number"
+                [placeholder]="field.placeholder || ''"
+                [required]="isFieldRequired(field)"
+                [disabled]="loading">
+
+              <!-- Password Input -->
+              <input 
+                *ngIf="getFieldType(field) === 'password'" 
+                [id]="field.id" 
+                class="form-control" 
+                [(ngModel)]="field.value" 
+                type="password"
+                [placeholder]="field.placeholder || ''"
+                [required]="isFieldRequired(field)"
+                [disabled]="loading">
+
+              <!-- Select Input -->
+              <select 
+                *ngIf="getFieldType(field) === 'select'" 
+                [id]="field.id" 
+                class="form-select" 
+                [(ngModel)]="field.value"
+                [required]="isFieldRequired(field)"
+                [disabled]="loading">
+                <option value="" disabled>{{ field.placeholder || 'Seleccione una opción...' }}</option>
+                <option 
+                  *ngFor="let option of field.options; trackBy: trackByOptionValue" 
+                  [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+
+              <!-- Textarea -->
+              <textarea 
+                *ngIf="getFieldType(field) === 'textarea'" 
+                [id]="field.id" 
+                class="form-control" 
+                [(ngModel)]="field.value"
+                [placeholder]="field.placeholder || ''"
+                [required]="isFieldRequired(field)"
+                [disabled]="loading"
+                rows="3">
+              </textarea>
+
+              <!-- Help Text -->
+              <div *ngIf="field.helpText" class="form-text">
+                {{ field.helpText }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- Custom Content (for delete confirmations, etc.) -->
+        <div *ngIf="!loading && !showForm">
+          <ng-content></ng-content>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div *ngIf="showFooter" class="modal-footer">
+        <button 
+          type="button" 
+          [class]="cancelButtonClass"
+          (click)="close()"
+          [disabled]="loading">
+          {{ cancelButtonText }}
+        </button>
+        
+        <button 
+          type="button" 
+          [class]="submitButtonClass"
+          (click)="submit()"
+          [disabled]="loading">
+          
+          <!-- Loading Spinner -->
+          <span *ngIf="loading" 
+                class="spinner-border spinner-border-sm me-2" 
+                role="status" 
+                aria-hidden="true">
+          </span>
+          
+          {{ submitButtonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop Overlay -->
+<div *ngIf="isOpen" class="modal-backdrop fade show"></div>

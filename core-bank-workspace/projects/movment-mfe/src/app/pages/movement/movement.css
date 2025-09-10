@@ -1,0 +1,40 @@
+/* Movement page styles */
+.movement-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.movement-type-credit {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.movement-type-debit {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.balance-positive {
+  color: #28a745;
+}
+
+.balance-negative {
+  color: #dc3545;
+}
+
+.amount-cell {
+  font-weight: bold;
+}
+
+.movement-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.modal-movement-info {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}

@@ -1,0 +1,68 @@
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold">Gestión de Cuentas</h2>
+</div>
+
+
+<!-- Search and Table Integration -->
+<app-ui-search-table
+  [data]="users()"
+  [config]="searchTableConfig"
+  [loading]="loading()"
+  (deleteRow)="deleteRow($event)"
+  (editRow)="openModal($event)"
+  (createNew)="openCreateModal()"
+  (searchResults)="onSearchResults($event)">
+</app-ui-search-table>
+
+<!-- Modal de Creación -->
+<app-ui-modal 
+  [title]="'Crear Nueva Cuenta'" 
+  [isOpen]="isCreateModalOpen" 
+  [fields]="createFields"
+  [submitButtonText]="'Crear Cuenta'"
+  [submitButtonClass]="'btn btn-success'"
+  [loading]="loading()"
+  (closeModal)="closeCreateModal()"
+  (submitForm)="onCreateAccount($event)">
+</app-ui-modal>
+
+<!-- Modal de Actualización -->
+<app-ui-modal 
+  [title]="'Actualizar Cuenta'" 
+  [isOpen]="isModalOpen" 
+  [fields]="customFields"
+  [data]="selectedRow"
+  [submitButtonText]="'Actualizar Cuenta'"
+  [submitButtonClass]="'btn btn-primary'"
+  [loading]="loading()"
+  (closeModal)="closeModal()"
+  (submitForm)="onModalSubmit($event)">
+</app-ui-modal>
+
+<!-- Modal de Eliminación -->
+<app-ui-modal 
+  [title]="'Confirmar Eliminación'" 
+  [isOpen]="isModalOpenAlert"
+  [data]="selectedRow"
+  [showForm]="false"
+  [submitButtonText]="'Eliminar'"
+  [submitButtonClass]="'btn btn-danger'"
+  [cancelButtonText]="'Cancelar'"
+  [loading]="loading()"
+  (closeModal)="closeModalAlert()"
+  (submitForm)="onModalSubmitAlert($event)">
+  <div class="text-center py-3">
+    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+    <h5>¿Está seguro que desea eliminar esta cuenta?</h5>
+    <p class="text-muted mb-0">
+      <strong>Cuenta: {{ selectedRow?.accountNumber }}</strong><br>
+      <small>Tipo: {{ selectedRow?.accountType }}</small><br>
+      <small>Cliente: {{ selectedRow?.identification }}</small>
+    </p>
+    <p class="text-danger mt-2 mb-0">
+      <small>Esta acción no se puede deshacer.</small>
+    </p>
+  </div>
+</app-ui-modal>
+

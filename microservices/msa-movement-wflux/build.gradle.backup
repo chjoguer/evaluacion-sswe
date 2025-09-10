@@ -1,0 +1,90 @@
+﻿plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.openapi.generator' version '7.15.0'
+}
+
+group = 'org.rauka.dm'
+version = '0.0.1-SNAPSHOT'
+description = 'msa-movement-wflux'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+def packageName = 'org.rauka.dm.msamovementwflux'
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+tasks.register('buildSpringServer', GenerateTask) {
+    generatorName.set("spring")
+    inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
+    outputDir.set("$buildDir/generated")
+    apiPackage.set("${packageName}.controller")
+    modelPackage.set("${packageName}.service.models")
+    library.set("spring-boot")
+    configOptions.set([
+            useSpringBoot3: "true",
+            useJakartaEe: "true",
+            serializableModel: "true",
+            dateLibrary: "java8",
+            openApiNullable: "false",
+            apiFirst: "false",
+            delegatePattern: "true",
+            sourceFolder: "src/main/java",
+            interfaceOnly: "true",
+            configPackage: "${packageName}.config",
+            basePackage: "${packageName}",
+            disallowAdditionalPropertiesIfNotPresent: "true",
+            reactive: "true",
+            useTags: "true",
+            singleContentTypes: "true"
+    ])
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += ["$buildDir/generated/src/main/java"]
+        }
+    }
+}
+
+tasks.named('compileJava') {
+    dependsOn tasks.named('buildSpringServer')
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0'
+    implementation 'org.postgresql:r2dbc-postgresql:1.0.5.RELEASE'
+    implementation 'io.r2dbc:r2dbc-pool:1.0.1.RELEASE'
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'io.r2dbc:r2dbc-h2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

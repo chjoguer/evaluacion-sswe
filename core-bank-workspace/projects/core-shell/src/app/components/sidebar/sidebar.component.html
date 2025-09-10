@@ -1,0 +1,19 @@
+<!-- Sidebar Content -->
+<div class="bg-light vh-100 border-end">
+  <ul class="nav flex-column py-3">
+    @for (item of menuItems; track item.route) {
+      <li class="nav-item">
+        <a 
+          class="nav-link text-dark fw-semibold d-flex align-items-center" 
+          [routerLink]="item.route" 
+          routerLinkActive="active bg-primary text-white rounded mx-2"
+        >
+          @if (item.icon) {
+            <i [class]="item.icon + ' me-2'"></i>
+          }
+          {{ item.label }}
+        </a>
+      </li>
+    }
+  </ul>
+</div>

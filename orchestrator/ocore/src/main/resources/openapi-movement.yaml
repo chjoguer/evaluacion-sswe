@@ -1,0 +1,418 @@
+openapi: 3.0.3
+info:
+  title: MSA Movement WebFlux API
+  description: Reactive Microservice for Account Movements using Spring WebFlux
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@rauka.org
+servers:
+  - url: http://localhost:8080
+    description: Development server
+
+paths:
+  /api/movements:
+    get:
+      summary: Get all movements (filterable)
+      operationId: getAllMovements
+      tags: [movements]
+      parameters:
+        - name: accountId
+          in: query
+          required: false
+          schema: { type: integer, format: int64, minimum: 1 }
+          description: Filter by account ID
+        - name: from
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+          description: Start datetime (inclusive)
+        - name: to
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+          description: End datetime (inclusive)
+        - name: movementType
+          in: query
+          required: false
+          schema: { $ref: '#/components/schemas/MovementType' }
+          description: Filter by movement type
+      responses:
+        '200':
+          description: List of movements
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/MovementDTO' }
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    post:
+      summary: Create a new movement
+      operationId: createMovement
+      tags: [movements]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MovementCreateDTO' }
+      responses:
+        '201':
+          description: Movement created successfully
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MovementDTO' }
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '409':
+          description: Duplicate uniqueKey (idempotency violation)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /api/movements/{movementId}:
+    get:
+      summary: Get movement by ID
+      operationId: getMovementById
+      tags: [movements]
+      parameters:
+        - name: movementId
+          in: path
+          required: true
+          schema: { type: integer, format: int64, minimum: 1 }
+      responses:
+        '200':
+          description: Movement found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MovementDTO' }
+        '404':
+          description: Movement not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    put:
+      summary: Update a movement
+      operationId: updateMovement
+      tags: [movements]
+      parameters:
+        - name: movementId
+          in: path
+          required: true
+          schema: { type: integer, format: int64, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MovementUpdateDTO' }
+      responses:
+        '200':
+          description: Movement updated successfully
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MovementDTO' }
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '404':
+          description: Movement not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    delete:
+      summary: Delete movement
+      operationId: deleteMovement
+      tags: [movements]
+      parameters:
+        - name: movementId
+          in: path
+          required: true
+          schema: { type: integer, format: int64, minimum: 1 }
+      responses:
+        '204': { description: Movement deleted successfully }
+        '404':
+          description: Movement not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /api/movements/unique/{uniqueKey}:
+    get:
+      summary: Get movement by unique key (idempotency key)
+      operationId: getMovementByUniqueKey
+      tags: [movements]
+      parameters:
+        - name: uniqueKey
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 8
+            maxLength: 64
+            pattern: '^[0-9a-zA-Z-_.:]{8,64}$'
+          description: Unique key provided when creating the movement
+      responses:
+        '200':
+          description: Movement found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MovementDTO' }
+        '404':
+          description: Movement not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /api/movements/account/{accountId}:
+    get:
+      summary: Get movements by account
+      operationId: getMovementsByAccount
+      tags: [movements]
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema: { type: integer, format: int64, minimum: 1 }
+        - name: from
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+        - name: to
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+        - name: movementType
+          in: query
+          required: false
+          schema: { $ref: '#/components/schemas/MovementType' }
+      responses:
+        '200':
+          description: List of movements for the account
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/MovementDTO' }
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /api/movements/type/{movementType}:
+    get:
+      summary: Get movements by type
+      operationId: getMovementsByType
+      tags: [movements]
+      parameters:
+        - name: movementType
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/MovementType' }
+      responses:
+        '200':
+          description: List of movements by type
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/MovementDTO' }
+        '400':
+          description: Invalid movement type
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+components:
+  schemas:
+    MovementType:
+      type: string
+      enum: [DEBIT, CREDIT]
+      description: Type of movement
+
+    MovementDTO:
+      type: object
+      required: [movementId, uniqueKey, accountId, occurredAt, movementType, amount, balance]
+      properties:
+        movementId:
+          type: integer
+          format: int64
+          minimum: 1
+          description: Unique identifier for the movement
+        uniqueKey:
+          type: string
+          minLength: 8
+          maxLength: 64
+          pattern: '^[0-9a-zA-Z-_.:]{8,64}$'
+          description: Unique key to ensure idempotency (client-provided)
+          example: "3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10"
+        accountId:
+          type: integer
+          format: int64
+          minimum: 1
+          description: Associated account ID
+        occurredAt:
+          type: string
+          format: date-time
+          description: Movement date/time (Fecha)
+        movementType:
+          $ref: '#/components/schemas/MovementType'
+        amount:
+          type: number
+          format: double
+          description: Movement amount (> 0)
+          minimum: 0
+          exclusiveMinimum: true
+          example: 50.00
+        balance:
+          type: number
+          format: double
+          description: Account balance after applying the movement (saldo)
+          example: 1450.50
+        description:
+          type: string
+          maxLength: 255
+          description: Optional description or memo
+        reference:
+          type: string
+          maxLength: 100
+          description: External reference or correlation id
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    MovementCreateDTO:
+      type: object
+      required: [uniqueKey, accountId, occurredAt, movementType, amount]
+      properties:
+        uniqueKey:
+          type: string
+          minLength: 8
+          maxLength: 64
+          pattern: '^[0-9a-zA-Z-_.:]{8,64}$'
+          description: Unique key to ensure idempotency (must be unique per movement)
+          example: "3b1f1f9e-7d6c-4c0e-9a4b-5c5a3e2b9c10"
+        accountId:
+          type: integer
+          format: int64
+          minimum: 1
+          description: Associated account ID
+        occurredAt:
+          type: string
+          format: date-time
+          description: Movement date/time (Fecha)
+        movementType:
+          $ref: '#/components/schemas/MovementType'
+        amount:
+          type: number
+          format: double
+          minimum: 0
+          exclusiveMinimum: true
+          description: Movement amount (> 0)
+          example: 50.00
+        balance:
+          type: number
+          format: double
+          description: Resulting balance after movement (optional; can be computed by service)
+        description:
+          type: string
+          maxLength: 255
+        reference:
+          type: string
+          maxLength: 100
+
+    MovementUpdateDTO:
+      type: object
+      description: Fields allowed to update (metadata only; business fields usually immutable)
+      properties:
+        description:
+          type: string
+          maxLength: 255
+        reference:
+          type: string
+          maxLength: 100
+
+    Error:
+      type: object
+      required: [timestamp, status, message, path]
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-09-08T15:04:05Z"
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "Invalid 'amount' (must be > 0)"
+        path:
+          type: string
+          example: "/api/movements"

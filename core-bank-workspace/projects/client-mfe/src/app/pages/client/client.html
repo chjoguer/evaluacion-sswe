@@ -1,0 +1,85 @@
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">
+      <i class="fas fa-users me-2 text-primary"></i>
+      Gestión de Clientes
+    </h2>
+  </div>
+
+  <!-- Componente de Búsqueda -->
+  <app-ui-search
+    [config]="searchTableConfig.searchConfig"
+    [data]="users()"
+    (searchResults)="onSearchResults($event)">
+  </app-ui-search>
+
+  <!-- Botón de Crear -->
+  <div class="d-flex justify-content-end mb-3">
+    <button 
+      type="button" 
+      class="btn btn-success"
+      (click)="openCreateModal()">
+      <i class="fas fa-plus me-2"></i>
+      {{ searchTableConfig.createButtonText }}
+    </button>
+  </div>
+
+  <!-- Tabla de Clientes -->
+  <app-ui-table
+    [data]="filteredUsers()"
+    [columns]="searchTableConfig.tableColumns"
+    [loading]="loading()"
+    (deleteRow)="deleteRow($event)"
+    (editRow)="openModal($event)">
+  </app-ui-table>
+
+  <!-- Modal de Creación -->
+  <app-ui-modal 
+    [title]="'Crear Nuevo Cliente'" 
+    [isOpen]="isCreateModalOpen" 
+    [fields]="createFields"
+    [submitButtonText]="'Crear Cliente'"
+    [submitButtonClass]="'btn btn-success'"
+    [loading]="loading()"
+    (closeModal)="closeCreateModal()"
+    (submitForm)="onCreateClient($event)">
+  </app-ui-modal>
+
+  <!-- Modal de Actualización -->
+  <app-ui-modal 
+    [title]="'Actualizar Cliente'" 
+    [isOpen]="isModalOpen" 
+    [fields]="customFields"
+    [data]="selectedRow"
+    [submitButtonText]="'Actualizar Cliente'"
+    [submitButtonClass]="'btn btn-primary'"
+    [loading]="loading()"
+    (closeModal)="closeModal()"
+    (openModal)="openModal($event)"
+    (submitForm)="onModalSubmit($event)">
+  </app-ui-modal>
+
+  <!-- Modal de Eliminación -->
+  <app-ui-modal 
+    [title]="'Confirmar Eliminación'" 
+    [isOpen]="isModalOpenAlert"
+    [data]="selectedRow"
+    [showForm]="false"
+    [submitButtonText]="'Eliminar'"
+    [submitButtonClass]="'btn btn-danger'"
+    [cancelButtonText]="'Cancelar'"
+    [loading]="loading()"
+    (closeModal)="closeModalAlert()"
+    (submitForm)="onModalSubmitAlert($event)">
+    <div class="text-center py-3">
+      <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+      <h5>¿Está seguro que desea eliminar este cliente?</h5>
+      <p class="text-muted mb-0">
+        <strong>{{ selectedRow?.fullName }}</strong><br>
+        <small>ID: {{ selectedRow?.identification }}</small>
+      </p>
+      <p class="text-danger mt-2 mb-0">
+        <small>Esta acción no se puede deshacer.</small>
+      </p>
+    </div>
+  </app-ui-modal> 

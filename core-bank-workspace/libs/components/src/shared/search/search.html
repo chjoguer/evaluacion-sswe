@@ -1,0 +1,78 @@
+<!-- Search Container -->
+<div class="search-container">
+  <!-- Search Input Section -->
+  <div class="search-input-section">
+    <div class="position-relative">
+      <!-- Search Icon -->
+      <div class="search-icon">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </div>
+      
+      <!-- Search Input -->
+      <input 
+        type="text"
+        class="form-control search-input"
+        [placeholder]="currentConfig.placeholder"
+        [value]="searchTerm()"
+        (input)="onSearchChange($event.target.value)"
+        [disabled]="loading"
+        autocomplete="off"
+        [attr.aria-label]="currentConfig.placeholder">
+      
+      <!-- Loading Spinner -->
+      <div *ngIf="isSearching() || loading" class="search-loading">
+        <div class="spinner-border spinner-border-sm text-primary" role="status">
+          <span class="visually-hidden">Buscando...</span>
+        </div>
+      </div>
+      
+      <!-- Clear Button -->
+      <button 
+        *ngIf="searchTerm() && !loading"
+        type="button"
+        class="btn search-clear-btn"
+        (click)="clearSearch()"
+        [attr.aria-label]="'Limpiar búsqueda'">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search Results Info -->
+  <div *ngIf="showResults" class="search-results-info">
+    <!-- Results Count -->
+    <div *ngIf="searchTerm() && !isSearching()" class="search-stats">
+      <span class="result-count" [class.text-success]="hasResults()" [class.text-muted]="!hasResults()">
+        <i class="fas fa-list-ul me-1" aria-hidden="true"></i>
+        {{ resultCount() }} resultado{{ resultCount() !== 1 ? 's' : '' }}
+        <span *ngIf="searchTerm()" class="search-term">
+          para <strong>"{{ searchTerm() }}"</strong>
+        </span>
+      </span>
+    </div>
+
+    <!-- No Results Message -->
+    <div *ngIf="showNoResults()" class="no-results-message">
+      <div class="alert alert-info mb-0" role="alert">
+        <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+        No se encontraron resultados para <strong>"{{ searchTerm() }}"</strong>
+        <div class="mt-2">
+          <small class="text-muted">
+            Intenta con otros términos de búsqueda o 
+            <button type="button" class="btn btn-link btn-sm p-0" (click)="clearSearch()">
+              ver todos los registros
+            </button>
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Tips -->
+    <div *ngIf="!searchTerm() && data.length > 10" class="search-tips">
+      <small class="text-muted">
+        <i class="fas fa-lightbulb me-1" aria-hidden="true"></i>
+        Utiliza el buscador para filtrar entre {{ data.length }} registros
+      </small>
+    </div>
+  </div>
+</div>
