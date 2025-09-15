@@ -41,6 +41,6 @@ public class AccountEntity {
     private LocalDateTime updatedAt;
 
     public enum AccountType {
-        SAVINGS, CHECKING, BUSINESS
+        AHORRO, CORRIENTE
     }
 }

@@ -26,9 +26,8 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Mono<MovementDTO> createMovement(MovementCreateDTO movementCreateDTO) {
-        log.debug("Creating new movement: {}", movementCreateDTO);
+        log.info("Service: Creating new movement: {}", movementCreateDTO);
         
-        // Check if unique key already exists
         return movementRepository.findByUniqueKey(movementCreateDTO.getUniqueKey())
                 .flatMap(existingMovement -> {
                     log.warn("Movement with unique key {} already exists", movementCreateDTO.getUniqueKey());
@@ -49,7 +48,7 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Mono<MovementDTO> getMovementById(Long movementId) {
-        log.debug("Fetching movement by ID: {}", movementId);
+        log.info("Service: Fetching movement by ID: {}", movementId);
         
         return movementRepository.findById(movementId)
                 .map(movementMapper::toDto)
@@ -59,7 +58,7 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Mono<MovementDTO> getMovementByUniqueKey(String uniqueKey) {
-        log.debug("Fetching movement by unique key: {}", uniqueKey);
+        log.info("Service: Fetching movement by unique key: {}", uniqueKey);
         
         return movementRepository.findByUniqueKey(uniqueKey)
                 .map(movementMapper::toDto)
@@ -69,9 +68,8 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Flux<MovementDTO> getAllMovements(Long accountId, OffsetDateTime from, OffsetDateTime to, String movementType) {
-        log.debug("Fetching all movements with filters - accountId: {}, from: {}, to: {}, type: {}", accountId, from, to, movementType);
+        log.info("Service: Fetching all movements with filters - accountId: {}, from: {}, to: {}, type: {}", accountId, from, to, movementType);
         
-        // Convert OffsetDateTime to LocalDateTime
         LocalDateTime fromLocal = from != null ? from.toLocalDateTime() : null;
         LocalDateTime toLocal = to != null ? to.toLocalDateTime() : null;
         MovementEntity.MovementType typeEnum = movementType != null ? MovementEntity.MovementType.valueOf(movementType.toUpperCase()) : null;
@@ -104,14 +102,14 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Flux<MovementDTO> getMovementsByAccount(Long accountId, OffsetDateTime from, OffsetDateTime to, String movementType) {
-        log.debug("Fetching movements by account: {} with filters - from: {}, to: {}, type: {}", accountId, from, to, movementType);
+        log.info("Service: Fetching movements by account: {} with filters - from: {}, to: {}, type: {}", accountId, from, to, movementType);
         
         return getAllMovements(accountId, from, to, movementType);
     }
 
     @Override
     public Flux<MovementDTO> getMovementsByType(String movementType) {
-        log.debug("Fetching movements by type: {}", movementType);
+        log.info("Service: Fetching movements by type: {}", movementType);
         
         MovementEntity.MovementType type = MovementEntity.MovementType.valueOf(movementType.toUpperCase());
         
@@ -123,7 +121,7 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Mono<MovementDTO> updateMovement(Long movementId, MovementUpdateDTO movementUpdateDTO) {
-        log.debug("Updating movement with ID: {}", movementId);
+        log.info("Service: Updating movement with ID: {}", movementId);
         
         return movementRepository.findById(movementId)
                 .flatMap(existingMovement -> {
@@ -145,7 +143,7 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     public Mono<Void> deleteMovement(Long movementId) {
-        log.debug("Deleting movement with ID: {}", movementId);
+        log.info("Service: Deleting movement with ID: {}", movementId);
         
         return movementRepository.deleteById(movementId)
                 .doOnSuccess(result -> log.debug("Movement deleted successfully: {}", movementId))

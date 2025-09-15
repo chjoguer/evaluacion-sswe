@@ -1,4 +1,4 @@
-package org.rauka.dm.msamovementwflux.domain;
+package org.rauka.dm.msapdfgenerator.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

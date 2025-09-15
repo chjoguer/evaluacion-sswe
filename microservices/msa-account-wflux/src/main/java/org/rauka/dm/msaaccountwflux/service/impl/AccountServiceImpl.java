@@ -79,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Mono<AccountDTO> updateAccount(Long accountId, AccountDTO accountDTO) {
-        log.debug("Updating account with ID: {}", accountId);
+        log.debug("Service: Updating account with ID: {}", accountId);
         
         return accountRepository.findById(accountId)
                 .flatMap(existingAccount -> {
@@ -97,7 +97,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Mono<Void> deleteAccount(Long accountId) {
-        log.debug("Deleting account with ID: {}", accountId);
+        log.info("Service: Deleting account with ID: {}", accountId);
         
         return accountRepository.deleteById(accountId)
                 .doOnSuccess(result -> log.debug("Account deleted successfully: {}", accountId))

@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: MSA PDF Generator API
+  description: Reactive Microservice for PDF Generation using Spring WebFlux
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@rauka.org
+servers:
+  - url: http://localhost:8081
+    description: Development server
+
+paths:
+  /reportes:
+    get:
+      summary: Generate PDF report for date range
+      operationId: generatePdfReport
+      tags: [pdf]
+      parameters:
+        - name: fecha
+          in: query
+          required: true
+          description: Date range for the report in format "YYYY-MM-DD,YYYY-MM-DD" (fromDate,toDate)
+          schema:
+            type: string
+            pattern: '^\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}$'
+            example: "2024-01-01,2024-12-31"
+        - name: titulo
+          in: query
+          required: false
+          description: Optional title for the PDF report
+          schema:
+            type: string
+            maxLength: 100
+            example: "Financial Report"
+      responses:
+        '200':
+          description: PDF generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdfGenerationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    PdfGenerationResponse:
+      type: object
+      required:
+        - pdfBase64
+        - fileName
+        - generatedAt
+      properties:
+        pdfBase64:
+          type: string
+          description: Base64 encoded PDF content
+          example: "JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKPj4KZW5kb2JqCg=="
+        fileName:
+          type: string
+          description: Suggested filename for the PDF
+          example: "report_2024-01-01_to_2024-12-31.pdf"
+        generatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the PDF was generated
+          example: "2024-09-14T18:45:00Z"
+        size:
+          type: integer
+          description: Size of the PDF in bytes
+          example: 102400
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - timestamp
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: "INVALID_DATE_RANGE"
+        message:
+          type: string
+          description: Human readable error message
+          example: "From date must be before to date"
+        timestamp:
+          type: string
+          format: date-time
+          description: When the error occurred
+          example: "2024-09-14T18:45:00Z"

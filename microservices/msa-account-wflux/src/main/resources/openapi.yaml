@@ -161,7 +161,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [SAVINGS, CHECKING, BUSINESS]
+            enum: [AHORRO, CORRIENTE]
       responses:
         '200':
           description: List of accounts by type
@@ -195,7 +195,7 @@ components:
           example: "0123456789"
         accountType:
           type: string
-          enum: [SAVINGS, CHECKING, BUSINESS]
+          enum: [AHORRO, CORRIENTE]
           description: Type of account
         balance:
           type: number
